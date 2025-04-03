@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "cataract-doc-study"
+version = "0.1.0"
+description = ""
+authors = ["Rahul Sharma <rahul5982439@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.43.2"
+pandas = "^2.2.3"
+notebook = "^7.3.3"
+llama-index = "^0.12.25"
+llama-index-llms-azure-openai = "^0.3.2"
+pymongo = "^4.11.3"
+motor = "^3.7.0"
+fastapi = "^0.115.11"
+uvicorn = "^0.34.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

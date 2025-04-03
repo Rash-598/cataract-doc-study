@@ -1,0 +1,52 @@
+[
+    {
+        "question":"What are the early symptoms of cataracts?",
+        "answer":"a0",
+        "id":"924751af-98d5-64af-7a2e-99be83cd5c90"
+    },
+    {
+        "question":"How does cataract surgery improve vision?",
+        "answer":"a1",
+        "id":"efff1dc7-4c3f-81d0-ad67-6f2573cb9ce5"
+    },
+    {
+        "question":"Can cataracts be prevented or slowed down?",
+        "answer":"a3",
+        "id":"07bc93ee-94f4-c0c6-4d8b-818ddc1bec49"
+    },
+    {
+        "question":"What are the risks associated with cataract surgery?",
+        "answer":"a4",
+        "id":"253a9583-e13e-843c-a6c2-33a712ff4ea5"
+    },
+    {
+        "question":"How do cataracts affect night vision?",
+        "answer":"a5",
+        "id":"663e22e4-2bad-53a2-35be-b9af5a804d7a"
+    },
+    {
+        "question":"What is the difference between nuclear, cortical, and posterior subcapsular cataracts?",
+        "answer":"a5",
+        "id":"8a9ea3be-d014-69aa-9653-efee46a1f026"
+    },
+    {
+        "question":"At what age do cataracts typically develop?",
+        "answer":"a6",
+        "id":"321523cc-eb36-0f89-18e7-4d087fe11e1f"
+    },
+    {
+        "question":"Can diabetes increase the risk of cataracts?",
+        "answer":"a7",
+        "id":"47228332-c260-5c50-77c8-4255a57b9319"
+    },
+    {
+        "question":"How long does it take to recover from cataract surgery?",
+        "answer":"a8",
+        "id":"c416d70d-64cf-33f6-a985-04f1ee10e7c7"
+    },
+    {
+        "question":"Are there non-surgical treatments for cataracts?",
+        "answer":"a9",
+        "id":"154f340f-34ca-6eea-7170-df44fe19c529"
+    }
+]
