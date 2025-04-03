@@ -37,10 +37,15 @@ app.add_middleware(
 # Issue with multiple workers in FastAPI
 # https://github.com/encode/uvicorn/discussions/2450
 if __name__ == '__main__':
-    module_name = os.path.splitext(os.path.basename(__file__))[0]
-    print(module_name)
-    uvicorn.run(
-        f"{module_name}:app",
-        host="0.0.0.0",
-        port=8000
-    )
+    if os.getenv("APP_ENV") == "PROD":
+        uvicorn.run(
+            app,
+            host="0.0.0.0",
+            port=8000
+        )
+    else:
+        uvicorn.run(
+            app,
+            host="127.0.0.1",
+            port=5000
+        )
