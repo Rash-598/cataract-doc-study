@@ -93,7 +93,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
       // First remove all answers after current index
       const newAnswers = answers.slice(0, currIndex + 1);
       const newAnswerIndex = globalIndex + 1;
-      newAnswers.push({ index: newAnswerIndex, answer: responseData.updated_answer });
+      newAnswers.push({ id: newAnswerIndex, answer: responseData.updated_answer });
 
       // Add the new answer and update the current index
       setAnswers(newAnswers);
