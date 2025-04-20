@@ -19,6 +19,7 @@ const EditAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) => {
   const [answer, setAnswer] = React.useState(questionData.answer);
   const [hasStarted, setHasStarted] = React.useState(false);
   const [startTime, setStartTime] = React.useState(null);
+  const [timeElapsed, setTimeElapsed] = React.useState(0);
   const activityTracker = React.useRef(new ActivityTracker());
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -42,6 +43,10 @@ if (!hasStarted) {
   //   // }
   // };
 
+  const handleTimeUpdate = (time) => {
+    setTimeElapsed(time);
+  };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     activityTracker.current.addActivity(ActivityType.SUBMIT_ANSWER);
@@ -52,7 +57,7 @@ if (!hasStarted) {
         question_id: question.question_id,
         condition_id: question.condition_id,
         final_answer: answer,
-        duration: Date.now() - startTime
+        duration: timeElapsed * 1000 // Convert seconds to milliseconds
       },
       activity_tracker: activityTracker.current.getActivities(),
       progress_id: progress_id
@@ -85,6 +90,7 @@ if (!hasStarted) {
         <Typography variant="h6" gutterBottom>
           {questionData.question}
         </Typography>
+        <Timer start={startTime} onTimeUpdate={handleTimeUpdate} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
       </Box>
       <Box sx={{ my: 3 }}>
         <Typography variant="subtitle1" gutterBottom>
@@ -100,7 +106,6 @@ if (!hasStarted) {
           variant="outlined"
         />
       </Box>
-      <Timer start={startTime} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
       <Button
         onClick={handleSubmit}
         variant="contained"

@@ -19,6 +19,7 @@ const NewAnswer = ({ question, onNext, doctorId, progress_id }) => {
   const [answer, setAnswer] = React.useState('');
   const [hasStarted, setHasStarted] = React.useState(false);
   const [startTime, setStartTime] = React.useState(null);
+  const [timeElapsed, setTimeElapsed] = React.useState(0);
   const activityTracker = React.useRef(new ActivityTracker());
 
 //   console.log("question", question);
@@ -31,6 +32,10 @@ const NewAnswer = ({ question, onNext, doctorId, progress_id }) => {
         activityTracker.current.addActivity(ActivityType.QUESTION_START);
     }
 
+    const handleTimeUpdate = (time) => {
+        setTimeElapsed(time);
+    };
+
     const handleSubmit = async () => {
         activityTracker.current.addActivity(ActivityType.SUBMIT_ANSWER);
         const data = {
@@ -39,7 +44,7 @@ const NewAnswer = ({ question, onNext, doctorId, progress_id }) => {
                 question_id: question.question_id,
                 condition_id: question.condition_id,
                 final_answer: answer,
-                duration: Date.now() - startTime
+                duration: timeElapsed * 1000 // Convert seconds to milliseconds
             },
             activity_tracker: activityTracker.current.getActivities(),
             progress_id: progress_id
@@ -68,9 +73,12 @@ const NewAnswer = ({ question, onNext, doctorId, progress_id }) => {
 
   return (
     <Box component="form">
-      <Typography variant="h6" gutterBottom>
-        {questionData.question}
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+        <Typography variant="h6" gutterBottom>
+          {questionData.question}
+        </Typography>
+        <Timer start={startTime} onTimeUpdate={handleTimeUpdate} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
+      </Box>
       <Box sx={{ my: 3 }}>
         <TextField
           fullWidth
@@ -82,7 +90,6 @@ const NewAnswer = ({ question, onNext, doctorId, progress_id }) => {
           variant="outlined"
         />
       </Box>
-      <Timer start={startTime} />
       <Button
         onClick={handleSubmit}
         variant="contained"

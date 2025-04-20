@@ -25,6 +25,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
   const [feedback, setFeedback] = React.useState('');
   const [hasStarted, setHasStarted] = React.useState(false);
   const [startTime, setStartTime] = React.useState(null);
+  const [timeElapsed, setTimeElapsed] = React.useState(0);
   const activityTracker = React.useRef(new ActivityTracker());
   const [isUpdating, setIsUpdating] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -44,13 +45,16 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
   //   }
   // };
 
+  const handleTimeUpdate = (time) => {
+    setTimeElapsed(time);
+  };
+
   const handlePrevious = () => {
     activityTracker.current.addActivity(ActivityType.GO_LEFT, answers.slice(0, currAnswerIndex));
     setCurrAnswerIndex(currAnswerIndex - 1);
   };
 
   const handleNext = () => {
-
     activityTracker.current.addActivity(ActivityType.GO_RIGHT, answers.slice(0, Math.max(answers.length, currAnswerIndex + 2)));
     setCurrAnswerIndex(currAnswerIndex + 1);
   };
@@ -71,6 +75,9 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
       progress_id: progress_id
     }
 
+    let startTime = new Date()
+    let endTime = null;
+
     try {
       const serverUrl = getServerUrl();
       const doctorUrl = `${serverUrl}/update_answer`;
@@ -87,8 +94,8 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
       if (response.ok === false) {
         throw new Error('Failed to update answer');
       }
-
       const responseData = await response.json();
+      endTime = new Date();
 
       // First remove all answers after current index
       const newAnswers = answers.slice(0, currIndex + 1);
@@ -100,7 +107,8 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
       setCurrAnswerIndex(currIndex + 1);
       setGlobalIndex(newAnswerIndex);
 
-      activityTracker.current.addActivity(ActivityType.UPDATE_ANSWER, [...newAnswers], responseData.updated_answer);
+      console.log(startTime, endTime);
+      activityTracker.current.addActivity(ActivityType.UPDATE_ANSWER, [...newAnswers], responseData.updated_answer, startTime.getTime(), endTime.getTime());
 
     } catch (error) {
       toast.error('Failed to update answer, try again');
@@ -120,7 +128,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
         question_id: question.question_id,
         condition_id: question.condition_id,
         final_answer: answers[currAnswerIndex].answer,
-        duration: Date.now() - startTime
+        duration: timeElapsed * 1000 // Convert seconds to milliseconds
       },
       activity_tracker: activityTracker.current.getActivities(),
       progress_id: progress_id
@@ -153,7 +161,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
         <Typography variant="h6" gutterBottom>
           {questionData.question}
         </Typography>
-        <Timer start={startTime} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
+        <Timer start={startTime} onTimeUpdate={handleTimeUpdate} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
       </Box>
       <Box sx={{ my: 3 }}>
         <Typography variant="subtitle1" gutterBottom>

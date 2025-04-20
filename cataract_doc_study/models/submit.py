@@ -17,6 +17,8 @@ class ActivityTracker(BaseModel):
     timestamp: Optional[int] = None
     update_info: Optional[str] = None
     answer_states: Optional[List[AnswerState]] = Field([], title="AnswerState")  # Assuming it's a dictionary
+    llm_start_timestamp: Optional[int] = None
+    llm_end_timestamp: Optional[int] = None
 
 class SubmitModel(BaseModel):
     user_id: Optional[str] = None

@@ -5,8 +5,9 @@ export class ActivityTracker {
         this.startTime = null;
     }
 
-    addActivity(activityType, answer_states=[], update_info=null) {
-        this.activities.push(new Activity(activityType, answer_states, update_info));
+    addActivity(activityType, answer_states=[], update_info=null, llm_start_timestamp=null, llm_end_timestamp=null) {
+        console.log("Adding activity:", activityType, answer_states, update_info, llm_start_timestamp, llm_end_timestamp);
+        this.activities.push(new Activity(activityType, answer_states, update_info, llm_start_timestamp, llm_end_timestamp));
     }
 
     getActivities() {
@@ -17,11 +18,13 @@ export class ActivityTracker {
 export default ActivityTracker;
 
 export class Activity {
-    constructor(activityType, answer_states=[], update_info=null) {
+    constructor(activityType, answer_states=[], update_info=null, llm_start_timestamp=null, llm_end_timestamp=null) {
         this.action_type = activityType;
         this.timestamp = new Date().getTime();
         this.answer_states = answer_states;
         this.update_info = update_info;
+        this.llm_start_timestamp = llm_start_timestamp;
+        this.llm_end_timestamp = llm_end_timestamp;
     }
 }
 
