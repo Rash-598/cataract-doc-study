@@ -21,6 +21,8 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
   const [answers, setAnswers] = React.useState([{ id: 0, answer: questionData.answer }]);
   const [globalIndex, setGlobalIndex] = React.useState(0);
   const [currAnswerIndex, setCurrAnswerIndex] = React.useState(0);
+  const [previousAnswer, setPreviousAnswer] = React.useState(null);
+  const [showDiff, setShowDiff] = React.useState(true);
 
   const [feedback, setFeedback] = React.useState('');
   const [hasStarted, setHasStarted] = React.useState(false);
@@ -36,14 +38,6 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
       setStartTime(now);
       activityTracker.current.addActivity(ActivityType.QUESTION_START);
   }
-  // const handleInputFocus = () => {
-  //   if (!hasStarted) {
-  //     setHasStarted(true);
-  //     const now = Date.now();
-  //     setStartTime(now);
-  //     activityTracker.current.addActivity(ActivityType.QUESTION_START, [...answers]);
-  //   }
-  // };
 
   const handleTimeUpdate = (time) => {
     setTimeElapsed(time);
@@ -52,16 +46,23 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
   const handlePrevious = () => {
     activityTracker.current.addActivity(ActivityType.GO_LEFT, answers.slice(0, currAnswerIndex));
     setCurrAnswerIndex(currAnswerIndex - 1);
+    if (currAnswerIndex - 2 < 0) {
+      setPreviousAnswer(null);
+    } else {
+      setPreviousAnswer(answers[currAnswerIndex-2].answer);
+    }
   };
 
   const handleNext = () => {
     activityTracker.current.addActivity(ActivityType.GO_RIGHT, answers.slice(0, Math.max(answers.length, currAnswerIndex + 2)));
     setCurrAnswerIndex(currAnswerIndex + 1);
+    setPreviousAnswer(answers[currAnswerIndex].answer);
   };
 
   const handleFeedback = async (feedback) => {
     setIsUpdating(true);
     const currIndex = currAnswerIndex;
+    setPreviousAnswer(answers[currIndex].answer);
 
     const data = {
       user_id: doctorId,
@@ -155,26 +156,159 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
     }
   };
 
+  const getHighlightedText = (text) => {
+    if (!previousAnswer || !showDiff) return text;
+
+    // If the old answer is very short (like "a3"), treat it as a complete deletion
+    // if (previousAnswer.length <= 3) {
+    //   return (
+    //     <>
+    //       <span style={{ 
+    //         backgroundColor: '#ffe6e6', 
+    //         color: '#ff0000',
+    //         textDecoration: 'line-through'
+    //       }}>
+    //         {previousAnswer}
+    //       </span>
+    //       {' '}
+    //       <span style={{ 
+    //         backgroundColor: '#e6ffe6', 
+    //         color: '#00cc00'
+    //       }}>
+    //         {text}
+    //       </span>
+    //     </>
+    //   );
+    // }
+
+    // Split texts into words for comparison
+    const oldWords = previousAnswer.split(/\s+/);
+    const newWords = text.split(/\s+/);
+    const result = [];
+
+    // Find the longest common subsequence of words
+    const lcs = [];
+    const dp = Array(oldWords.length + 1).fill().map(() => Array(newWords.length + 1).fill(0));
+    
+    for (let i = 1; i <= oldWords.length; i++) {
+      for (let j = 1; j <= newWords.length; j++) {
+        if (oldWords[i - 1] === newWords[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        } else {
+          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+    }
+
+    let i = oldWords.length;
+    let j = newWords.length;
+    while (i > 0 && j > 0) {
+      if (oldWords[i - 1] === newWords[j - 1]) {
+        lcs.unshift({ word: oldWords[i - 1], oldIndex: i - 1, newIndex: j - 1 });
+        i--;
+        j--;
+      } else if (dp[i - 1][j] > dp[i][j - 1]) {
+        i--;
+      } else {
+        j--;
+      }
+    }
+
+    // Build the result with highlighting
+    let oldIndex = 0;
+    let newIndex = 0;
+    let lcsIndex = 0;
+
+    while (oldIndex < oldWords.length || newIndex < newWords.length) {
+      if (lcsIndex < lcs.length && 
+          oldIndex === lcs[lcsIndex].oldIndex && 
+          newIndex === lcs[lcsIndex].newIndex) {
+        // Common word
+        if (result.length > 0) {
+          result.push(' ');
+        }
+        result.push(<span key={`common-${newIndex}`}>{lcs[lcsIndex].word}</span>);
+        oldIndex++;
+        newIndex++;
+        lcsIndex++;
+      } else {
+        // Handle deletions
+        if (oldIndex < oldWords.length && 
+            (lcsIndex >= lcs.length || oldIndex < lcs[lcsIndex].oldIndex)) {
+          if (result.length > 0) {
+            result.push(' ');
+          }
+          result.push(
+            <span key={`deleted-${oldIndex}`} style={{ 
+              backgroundColor: '#ffe6e6', 
+              color: '#ff0000',
+              textDecoration: 'line-through'
+            }}>
+              {oldWords[oldIndex]}
+            </span>
+          );
+          oldIndex++;
+        }
+        
+        // Handle additions
+        if (newIndex < newWords.length && 
+            (lcsIndex >= lcs.length || newIndex < lcs[lcsIndex].newIndex)) {
+          if (result.length > 0) {
+            result.push(' ');
+          }
+          result.push(
+            <span key={`added-${newIndex}`} style={{ 
+              backgroundColor: '#e6ffe6', 
+              color: '#00cc00'
+            }}>
+              {newWords[newIndex]}
+            </span>
+          );
+          newIndex++;
+        }
+      }
+    }
+
+    return result;
+  };
+
   return (
     <Box component="form">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
         <Typography variant="h6" gutterBottom>
           {questionData.question}
         </Typography>
-        <Timer start={startTime} onTimeUpdate={handleTimeUpdate} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Timer start={startTime} onTimeUpdate={handleTimeUpdate} sx={{ fontWeight: 'bold', fontSize: '1.2rem' }} />
+        </Box>
       </Box>
       <Box sx={{ my: 3 }}>
-        <Typography variant="subtitle1" gutterBottom>
-          Your Answer:
-        </Typography>
-        <TextField
-          fullWidth
-          multiline
-          rows={5}
-          value={answers[currAnswerIndex].answer}
-          readOnly
-          variant="outlined"
-        />
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+          <Typography variant="subtitle1" gutterBottom>
+            Your Answer:
+          </Typography>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => setShowDiff(!showDiff)}
+            color={showDiff ? "success" : "default"}
+          >
+            {showDiff ? "Hide Diff" : "Show Diff"}
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            p: 2,
+            border: '1px solid #e0e0e0',
+            borderRadius: 1,
+            backgroundColor: '#f5f5f5',
+            minHeight: '100px',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word'
+          }}
+        >
+          {getHighlightedText(answers[currAnswerIndex].answer)}
+        </Box>
       </Box>
       <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-start', mb: 3 }}>
         <Tooltip title="Go to previous answer">
@@ -194,7 +328,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
             onClick={handleNext}
             variant="contained"
             endIcon={<ArrowForwardIcon />}
-            disabled={!feedback || currAnswerIndex === answers.length - 1}
+            disabled={currAnswerIndex === answers.length - 1}
             color="success"
             size="small"
           >
