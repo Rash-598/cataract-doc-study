@@ -85,5 +85,6 @@ async def get_answer(request: Request):
     condition_id = params.get("condition_id")
     key = hashlib.md5((user_id + condition_id).encode()).hexdigest()
     document = await survey_client.afetch({"_id": key})
+    print("document: ", document)
     ans = SubmitModel(**(document.get("answer_data")))
     return JSONResponse(content=ans.model_dump(), status_code=200)

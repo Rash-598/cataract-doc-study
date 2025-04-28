@@ -108,8 +108,9 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
       setCurrAnswerIndex(currIndex + 1);
       setGlobalIndex(newAnswerIndex);
 
-      console.log(startTime, endTime);
-      activityTracker.current.addActivity(ActivityType.UPDATE_ANSWER, [...newAnswers], responseData.updated_answer, startTime.getTime(), endTime.getTime());
+      // console.log(startTime, endTime);
+      // console.log(feedback);
+      activityTracker.current.addActivity(ActivityType.UPDATE_ANSWER, [...newAnswers], feedback, startTime.getTime(), endTime.getTime());
 
     } catch (error) {
       toast.error('Failed to update answer, try again');
