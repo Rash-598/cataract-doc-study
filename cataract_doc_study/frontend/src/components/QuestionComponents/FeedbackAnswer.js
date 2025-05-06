@@ -54,7 +54,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
   };
 
   const handleNext = () => {
-    activityTracker.current.addActivity(ActivityType.GO_RIGHT, answers.slice(0, Math.max(answers.length, currAnswerIndex + 2)));
+    activityTracker.current.addActivity(ActivityType.GO_RIGHT, answers.slice(0, Math.min(answers.length, currAnswerIndex + 2)));
     setCurrAnswerIndex(currAnswerIndex + 1);
     setPreviousAnswer(answers[currAnswerIndex].answer);
   };
@@ -122,7 +122,7 @@ const FeedbackAnswer = ({ question, onAnswer, onNext, doctorId, progress_id }) =
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    activityTracker.current.addActivity(ActivityType.SUBMIT_ANSWER, answers.slice(0, Math.max(answers.length, currAnswerIndex+1)));
+    activityTracker.current.addActivity(ActivityType.SUBMIT_ANSWER, answers.slice(0, Math.min(answers.length, currAnswerIndex+1)));
     
     const data = {
       user_id: doctorId,
