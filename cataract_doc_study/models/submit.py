@@ -11,6 +11,7 @@ class QuestionMetadata(BaseModel):
 class AnswerState(BaseModel):
     id: Optional[int] = None
     answer: Optional[str] = None
+    feedback: Optional[str] = None
 
 class ActivityTracker(BaseModel):
     action_type: Optional[str] = None
