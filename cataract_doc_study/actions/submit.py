@@ -8,7 +8,7 @@ async def submit_fn(submit_model: SubmitModel) -> bool:
     """
     from cataract_doc_study.dependency_setup import survey_client, user_client
 
-    str_concat = submit_model.question_metadata.question_id + str(submit_model.question_metadata.condition_id)
+    str_concat = submit_model.user_id + submit_model.question_metadata.question_id + str(submit_model.question_metadata.condition_id)
     key = hashlib.md5(str_concat.encode()).hexdigest()
     json_data = [{
         "_id": key,

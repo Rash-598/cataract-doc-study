@@ -81,9 +81,10 @@ async def get_users_questions():
 async def get_answer(request: Request):
     from cataract_doc_study.dependency_setup import survey_client
     params = params = request.query_params._dict
-    user_id = params.get("question_id")
+    user_id = params.get("user_id")
+    question_id = params.get("question_id")
     condition_id = params.get("condition_id")
-    key = hashlib.md5((user_id + condition_id).encode()).hexdigest()
+    key = hashlib.md5((user_id + question_id + condition_id).encode()).hexdigest()
     document = await survey_client.afetch({"_id": key})
     print("document: ", document)
     ans = SubmitModel(**(document.get("answer_data")))

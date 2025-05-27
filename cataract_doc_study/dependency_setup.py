@@ -18,10 +18,10 @@ connection_string = 'mongodb+srv://mohja:Byoeb%4012@byoeb-mongodb-vcore.mongoclu
 db_name = 'cataract_doc_study'
 db_client = AsyncAzureCosmosMongoDB(connection_string, db_name)
 
-survey_collection_name = 'test_collection'
+survey_collection_name = 'internal_pilot_collection'
 survey_collection = db_client.get_collection(survey_collection_name)
 survey_client = AsyncAzureCosmosMongoDBCollection(survey_collection)
 
-user_collection_name = 'user_collection'
+user_collection_name = 'internal_user_collection'
 user_collection = db_client.get_collection(user_collection_name)
 user_client = AsyncAzureCosmosMongoDBCollection(user_collection)
