@@ -16,6 +16,9 @@ pymongo = "^4.11.3"
 motor = "^3.7.0"
 fastapi = "^0.115.11"
 uvicorn = "^0.34.0"
+graphviz = "^0.20.3"
+dash = "^3.0.4"
+dash-cytoscape = "^1.0.2"
 
 
 [build-system]
