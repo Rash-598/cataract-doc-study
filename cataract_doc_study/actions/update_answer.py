@@ -1,5 +1,6 @@
 import re
-from cataract_doc_study.models.update_answer import IncomingUpdateModel
+import asyncio
+from cataract_doc_study.models.update_answer import IncomingUpdateModel, QuestionMetadata
 
 system_prompt = """
 <task_description> 
@@ -91,4 +92,20 @@ async def update_answer_fn(
         return updated_answer, None
     except Exception as e:
         return None, e
-    
+
+async def main():
+    update_info = IncomingUpdateModel(
+        user_id="user123",
+        question_metadata=QuestionMetadata(
+            question_id="q1",
+            question="Can I eat breakfast before the surgery?",
+            answer="Before cataract surgery, you\u2019ll usually be asked not to eat or drink anything for at least 6 hours beforehand. This is to reduce the risk of complications from anesthesia. If your surgery is in the morning, you\u2019ll likely need to skip breakfast. However, some clinics allow small sips of water or clear fluids up to 2 hours before. Always follow the exact instructions your doctor or surgical team gives you\u2014they\u2019ll tell you what\u2019s safe for your specific case. If you\u2019re unsure, call the clinic to confirm.",
+            update_info="breakfast can be done",
+            update_activities=[]
+        )
+    )
+    updated_answer, error = await update_answer_fn(update_info)
+    print("Updated Answer: ", updated_answer)
+
+if __name__ == "__main__":
+    asyncio.run(main())
