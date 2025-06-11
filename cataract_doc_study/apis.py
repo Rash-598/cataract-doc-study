@@ -30,6 +30,7 @@ async def login(request: Request):
     # print("Received the request: ", request.query_params._dict)
     params = request.query_params._dict
     user_id = params.get("user_id")
+    print(user_id)
     user_data = await login_fn(user_id)
     return JSONResponse(content=user_data.model_dump(), status_code=200)
 
