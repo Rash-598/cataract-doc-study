@@ -2,9 +2,9 @@
     {
         "user_id": "D1",
         "section_order": [
+            0,
             2,
-            1,
-            0
+            1
         ],
         "questions_list": [
             {
@@ -157,9 +157,9 @@
     {
         "user_id": "D2",
         "section_order": [
+            1,
             0,
-            2,
-            1
+            2
         ],
         "questions_list": [
             {
@@ -467,9 +467,9 @@
     {
         "user_id": "D4",
         "section_order": [
-            0,
             2,
-            1
+            1,
+            0
         ],
         "questions_list": [
             {
@@ -622,8 +622,8 @@
     {
         "user_id": "D5",
         "section_order": [
-            2,
             0,
+            2,
             1
         ],
         "questions_list": [
@@ -777,9 +777,9 @@
     {
         "user_id": "D6",
         "section_order": [
+            2,
             1,
-            0,
-            2
+            0
         ],
         "questions_list": [
             {
@@ -932,9 +932,9 @@
     {
         "user_id": "D7",
         "section_order": [
+            0,
             1,
-            2,
-            0
+            2
         ],
         "questions_list": [
             {
@@ -1050,10 +1050,6 @@
                 "condition_id": 2
             },
             {
-                "question_id": "Q76",
-                "condition_id": 2
-            },
-            {
                 "question_id": "Q77",
                 "condition_id": 2
             },
@@ -1091,9 +1087,9 @@
     {
         "user_id": "D8",
         "section_order": [
-            0,
+            2,
             1,
-            2
+            0
         ],
         "questions_list": [
             {
@@ -1110,10 +1106,6 @@
             },
             {
                 "question_id": "Q8",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q76",
                 "condition_id": 0
             },
             {
@@ -1250,8 +1242,8 @@
     {
         "user_id": "D9",
         "section_order": [
-            2,
             1,
+            2,
             0
         ],
         "questions_list": [
@@ -1317,169 +1309,6 @@
             },
             {
                 "question_id": "Q12",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q76",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q77",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q78",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q79",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q80",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q81",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q82",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q83",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q84",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q1",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q2",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q3",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q4",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q61",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q62",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q63",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q64",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q65",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q66",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q67",
-                "condition_id": 2
-            },
-            {
-                "question_id": "Q68",
-                "condition_id": 2
-            }
-        ],
-        "progress_id": 0
-    },
-    {
-        "user_id": "Prag",
-        "section_order": [
-            2,
-            1,
-            0
-        ],
-        "questions_list": [
-            {
-                "question_id": "Q5",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q6",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q7",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q8",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q69",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q70",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q71",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q72",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q73",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q74",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q75",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q76",
-                "condition_id": 0
-            },
-            {
-                "question_id": "Q9",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q10",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q11",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q12",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q76",
                 "condition_id": 1
             },
             {
@@ -1568,8 +1397,8 @@
     {
         "user_id": "Moh",
         "section_order": [
-            2,
             1,
+            2,
             0
         ],
         "questions_list": [
@@ -1638,7 +1467,158 @@
                 "condition_id": 1
             },
             {
+                "question_id": "Q77",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q78",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q79",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q80",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q81",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q82",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q83",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q84",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q1",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q2",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q3",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q4",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q61",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q62",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q63",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q64",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q65",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q66",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q67",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q68",
+                "condition_id": 2
+            }
+        ],
+        "progress_id": 0
+    },
+    {
+        "user_id": "Prag",
+        "section_order": [
+            1,
+            2,
+            0
+        ],
+        "questions_list": [
+            {
+                "question_id": "Q5",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q6",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q7",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q8",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q69",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q70",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q71",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q72",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q73",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q74",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q75",
+                "condition_id": 0
+            },
+            {
                 "question_id": "Q76",
+                "condition_id": 0
+            },
+            {
+                "question_id": "Q9",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q10",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q11",
+                "condition_id": 1
+            },
+            {
+                "question_id": "Q12",
                 "condition_id": 1
             },
             {
@@ -1727,8 +1707,8 @@
     {
         "user_id": "Rah",
         "section_order": [
-            2,
             1,
+            2,
             0
         ],
         "questions_list": [
@@ -1794,10 +1774,6 @@
             },
             {
                 "question_id": "Q12",
-                "condition_id": 1
-            },
-            {
-                "question_id": "Q76",
                 "condition_id": 1
             },
             {
