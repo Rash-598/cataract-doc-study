@@ -1,1 +1,1 @@
-git+https://github.com/Rash-598/cataract-doc-study.git@main#egg=cataract-doc-study
+git+https://github.com/Rash-598/cataract-doc-study.git@rash598/phase1_s2#egg=cataract-doc-study
