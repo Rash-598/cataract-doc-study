@@ -1550,6 +1550,63 @@
         "progress_id": 0
     },
     {
+        "user_id": "D11",
+        "section_order": [
+            2
+        ],
+        "questions_list": [
+            {
+                "question_id": "Q5",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q6",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q7",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q8",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q45",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q46",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q47",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q48",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q49",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q50",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q51",
+                "condition_id": 2
+            },
+            {
+                "question_id": "Q52",
+                "condition_id": 2
+            }
+        ],
+        "progress_id": 0
+    },
+    {
         "user_id": "Moh",
         "section_order": [
             1,
